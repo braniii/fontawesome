@@ -1,0 +1,97 @@
+\ExplSyntaxOn
+\msg_new:nnnn {fontawesome6} {list/no-shorthand} {No~shorthand~defined~for~icon~#1.} {
+  It~looks~like~#1~need~special~handling~in~fulllist.tex~but~there~are~
+  no~appropriate~definitions.~Ask~a~wizard~to~add~#1~to~fulllist.tex~to~
+  fix~this.
+}
+\tl_new:N \g__fontawesome_last_name_tl
+\tl_new:N \g__fontawesome_last_cs_tl
+\prg_new_protected_conditional:Nnn \__fontawesome_if_regular_style:nn {T} {
+  \group_begin:
+    \usefont{U}{fontawesome#1}{regular}{n}
+    \iffontchar\font#2
+      \group_insert_after:N \prg_return_true:
+    \else:
+      \group_insert_after:N \prg_return_false:
+    \fi:
+  \group_end:
+}
+\tracingonline1
+\showboxdepth\maxdimen
+\showboxbreadth\maxdimen
+\cs_new:Nn\__fontawesome_list_show_icon:nnnn{
+  \str_if_in:nnT{#3}{brands}{
+    \hfilneg\vbox to0.875em{\vfil\hbox to0pt{\hss\tiny\faTrademark\quad}\vfil}\hfil
+  }
+  \faIcon{#2}&\texttt{\textbackslash#1}&\texttt{\textbackslash faIcon\{#2\}}
+  \str_if_in:nnT{#3}{free}{
+    \__fontawesome_if_regular_style:nnT {#3} {#4} {
+      \\\faIcon[regular]{#2}&\texttt{\textbackslash#1[regular]}&\texttt{\textbackslash faIcon[regular]\{#2\}}
+    }
+  }
+  \tl_gset:Nn \g__fontawesome_last_cs_tl {#1}
+  \tl_gset:Nn \g__fontawesome_last_name_tl {#2}
+  \\
+}
+\cs_generate_variant:Nn \__fontawesome_list_show_icon:nnnn { fnnn }
+\cs_set:Nn\__fontawesome_def_icon:nnnnn{
+  \__fontawesome_list_show_icon:fnnn{
+    \tl_if_empty:nTF{#1}{
+      \str_if_eq:noTF{#2}{\g__fontawesome_last_name_tl-alt}{
+        \g__fontawesome_last_cs_tl*
+      }{
+        \cs_if_exist_use:cF {__fontawesome_list_real_cs_#2_tl} {
+          \msg_expandable_error:nnn {fontawesome5} {list/no-shorthand} {#2}
+        }
+      }
+    }{
+      \cs_to_str:N #1 % You might have noticed that #1 is a n-type argument, not N-type.
+      % This is not a mistake, the argument might contain additional characters after the initial cs
+      % which is passed to \cs_to_str:N
+    }
+  }{#2}{#3}{#4}
+}
+% Some icons are special for some reason. See fontawesome5.sty if you want to know why
+% they are singled out.
+\tl_const:cn{__fontawesome_list_real_cs_wifi_tl}{faWifi}
+\tl_const:cn{__fontawesome_list_real_cs_dice-d20_tl}{faDiceD20}
+\tl_const:cn{__fontawesome_list_real_cs_dice-d6_tl}{faDiceD6}
+\tl_const:cn{__fontawesome_list_real_cs_signal_tl}{faSignal}
+\tl_const:cn{__fontawesome_list_real_cs_stopwatch_tl}{faStopwatch}
+\tl_const:cn{__fontawesome_list_real_cs_stopwatch-20_tl}{faStopwatch20}
+%
+\tl_const:cn{__fontawesome_list_real_cs_500px_tl}{faIcon\{500px\}}
+%\tl_const:cn{__fontawesome_list_real_cs_arrows-alt_tl}{faArrows*}
+%\tl_const:cn{__fontawesome_list_real_cs_cloud-download-alt_tl}{faCloudDownload*}
+%\tl_const:cn{__fontawesome_list_real_cs_cloud-upload-alt_tl}{faCloudUpload*}
+%\tl_const:cn{__fontawesome_list_real_cs_exchange-alt_tl}{faExchange*}
+%\tl_const:cn{__fontawesome_list_real_cs_expand-arrows-alt_tl}{faExpandArrows*}
+%\tl_const:cn{__fontawesome_list_real_cs_external-link-alt_tl}{faExternalLink*}
+%\tl_const:cn{__fontawesome_list_real_cs_external-link-square-alt_tl}{faExternalLinkSquare*}
+%\tl_const:cn{__fontawesome_list_real_cs_level-down-alt_tl}{faLevelDown*}
+%\tl_const:cn{__fontawesome_list_real_cs_level-up-alt_tl}{faLevelUp*}
+%\tl_const:cn{__fontawesome_list_real_cs_pencil-alt_tl}{faPencil*}
+%\tl_const:cn{__fontawesome_list_real_cs_shield-alt_tl}{faShield*}
+%\tl_const:cn{__fontawesome_list_real_cs_sign-in-alt_tl}{faSignIn*}
+%\tl_const:cn{__fontawesome_list_real_cs_sign-out-alt_tl}{faSignOut*}
+%\tl_const:cn{__fontawesome_list_real_cs_square-root-alt_tl}{faSquareRoot*}
+%\tl_const:cn{__fontawesome_list_real_cs_tachometer-alt_tl}{faTachometer*}
+%\tl_const:cn{__fontawesome_list_real_cs_ticket-alt_tl}{faTicket*}
+%
+%\tl_const:cn{__fontawesome_list_real_cs_compress-arrows-alt_tl}{faCompressArrows*}
+\ExplSyntaxOff
+\newgeometry{textwidth=18cm}
+\subsection*{Full~icon~list~for~FontAwesome~6~Free}
+All icons marked with \vbox to0.875em{\vfil\hbox{\hss\tiny\faTrademark}\vfil} are brand icons.
+\begin{quote}
+  All brand icons are trademarks of their respective owners. The use of these
+  trademarks does not indicate endorsement of the trademark holder by Font
+  Awesome, nor vice versa. \emph{Please do not use brand logos for any purpose except
+  to represent the company, product, or service to which they refer.}
+\end{quote}
+\ExplSyntaxOn
+\begin{longtable}{cll}
+  \cs:w @@input\cs_end: fontawesome6-mapping.def~
+\end{longtable}
+\ExplSyntaxOff
+\restoregeometry

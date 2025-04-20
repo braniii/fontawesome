@@ -1,0 +1,95 @@
+\documentclass{scrartcl}
+\usepackage{hyperref}
+\usepackage{shortvrb}
+\usepackage{metalogo}
+\usepackage{longtable}
+\usepackage[fixed]{fontawesome6}
+% \usepackage{xcolor}
+% \usepackage[pro]{fontawesome6}
+% \faStyle{duotone}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\MakeShortVerb{\|}
+\begin{document}
+\title{The fontawesome6 package\thanks{This document corresponds to fontawesome6 version 6.7.2, dated 2025/04/20}}
+\author{Font Awesome\thanks{More information at \url{https://fontawesome.com}} (The font)\and Daniel Nagel\thanks{Github: \href{https://github.com/braniii}{github.com/braniii}} (The \LaTeX{} package)}
+\maketitle
+This package provides \LaTeX{} support for the Font Awesome 6 icons.
+
+Thanks goes to Marcel Krüger for the original fontawesome5 package, which was the
+basis for this package.
+
+To use Font Awesome 6 icons in your document, include the package with
+\begin{verbatim}
+  \usepackage{fontawesome6}
+\end{verbatim}
+Alternatively you can add the |fixed| option to get fixed-width icons:
+\begin{verbatim}
+  \usepackage[fixed]{fontawesome6}
+\end{verbatim}
+For every icon a macro is provided: Just use the official icon names converted to CamelCase with the prefix |\fa|.
+For example to use the |hand-point-up| icon, use |\faHandPointUp|.
+An optional argument can be added to select the style (|solid| or |regular|).
+The default style is |solid|, it can be changed with |\faStyle{...}|
+
+Every icon can also be accessed using the official icon name. To do this, you can use |\faIcon{the-icon-name}| or |\faIcon[style]{the-icon-name}|.
+
+A list of all included icons with their respective commands can be found at the end of this document.
+
+\subsection*{Example}
+\begin{verbatim}
+...
+\usepackage{fontawesome6}
+...
+\begin{document}
+...
+A simple icon: \faHandPointUp\\
+Multiple versions of the file icon:
+  \faFile~
+  \faFile[solid]~
+  \faFile[regular]~.\\
+Alternative syntax:
+  \faIcon{file}~
+  \faIcon[solid]{file}~
+  \faIcon[regular]{file}~.
+...
+\end{document}
+\end{verbatim}
+
+A simple icon: \faHandPointUp\\
+Multiple versions of the file icon: \faFile~\faFile[solid]~\faFile[regular].\\
+Alternative syntax: \faIcon{file}~\faIcon[solid]{file}~\faIcon[regular]{file}.
+
+\subsection*{Font Awesome Pro}
+Font Awesome 6 is available in a Free and a Pro version.
+This package uses the free version by default.
+If you own a Pro license and have the Font Awesome 6 Pro desktop fonts installed in your system font path, you can use Pro instead.
+For this, load the package with the |[pro]| option:
+\begin{verbatim}
+  \usepackage[pro]{fontawesome6}
+\end{verbatim}
+Now additional icons, the |duotone| and the |light| style can be used.
+The second color for |duotone| icons can be set though |\faDuotoneSetSecondary|:
+\begin{verbatim}
+  \faDuotoneSetSecondary{green}% From here on, the secondary layer
+                               % will be green.
+\end{verbatim}
+Pro is only supported with \XeLaTeX{} and \LuaLaTeX.
+For icons ending with |-alt|, append a |*| instead.
+
+\subsection*{Updates}
+This package corresponds to Font Awesome 6.7.2.
+In case there is a newer version available on the Font Awesome homepage, check for updates on \url{https://ctan.org/pkg/fontawesome6}. Should there be no corresponding update on CTAN, you can write a mail to \href{mailto:tex@2krueger.de}{\nolinkurl{tex@2krueger.de}}.
+If you use \XeLaTeX{} or \LuaLaTeX{}, you can also directly download the new Desktop Fonts from \url{https://fontawesome.com} into your \TeX{} tree. If you save them with the filenames\\
+{\ttfamily\begin{tabular}{l}
+  FontAwesome6Brands-Regular-400.otf\\
+  FontAwesome6Free-Regular-400.otf\\
+  FontAwesome6Free-Solid-900.otf
+\end{tabular}}\\
+the package will start using the new version right away.
+
+\subsection*{Bugs}
+For bug reports and feature requests, open an issue at \href{https://github.com/braniii/fontawesome6}{github.com/braniii/fontawesome6}.
+
+\input{fulllist}
+\end{document}
