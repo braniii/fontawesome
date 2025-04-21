@@ -13,14 +13,44 @@
 % The Current Maintainer of this work is Daniel Nagel
 %
 \DeclareFontFamily{TU}{fontawesomepro}{}
+
+% Main Pro styles
 \DeclareFontShape{TU}{fontawesomepro}{solid}{n}
   {<-> \UnicodeFontName{FontAwesome6Pro-Solid}{script=latn;}}{}
 \DeclareFontShape{TU}{fontawesomepro}{regular}{n}
   {<-> \UnicodeFontName{FontAwesome6Pro-Regular}{script=latn;}}{}
 \DeclareFontShape{TU}{fontawesomepro}{light}{n}
   {<-> \UnicodeFontName{FontAwesome6Pro-Light}{script=latn;}}{}
-\DeclareFontShape{TU}{fontawesomepro}{duotone}{n}
+\DeclareFontShape{TU}{fontawesomepro}{thin}{n}
+  {<-> \UnicodeFontName{FontAwesome6Pro-Thin}{script=latn;}}{}
+
+% Duotone styles
+\DeclareFontShape{TU}{fontawesomepro}{duotone-solid}{n}
   {<-> \UnicodeFontName{FontAwesome6Duotone-Solid}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{duotone-regular}{n}
+  {<-> \UnicodeFontName{FontAwesome6Duotone-Regular}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{duotone-light}{n}
+  {<-> \UnicodeFontName{FontAwesome6Duotone-Light}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{duotone-thin}{n}
+  {<-> \UnicodeFontName{FontAwesome6Duotone-Thin}{script=latn;}}{}
+
+% Sharp styles
+\DeclareFontShape{TU}{fontawesomepro}{sharp-solid}{n}
+  {<-> \UnicodeFontName{FontAwesome6Sharp-Solid}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-regular}{n}
+  {<-> \UnicodeFontName{FontAwesome6Sharp-Regular}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-light}{n}
+  {<-> \UnicodeFontName{FontAwesome6Sharp-Light}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-thin}{n}
+  {<-> \UnicodeFontName{FontAwesome6Sharp-Thin}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-duotone-solid}{n}
+  {<-> \UnicodeFontName{FontAwesome6SharpDuotone-Solid}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-duotone-regular}{n}
+  {<-> \UnicodeFontName{FontAwesome6SharpDuotone-Regular}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-duotone-light}{n}
+  {<-> \UnicodeFontName{FontAwesome6SharpDuotone-Light}{script=latn;}}{}
+\DeclareFontShape{TU}{fontawesomepro}{sharp-duotone-thin}{n}
+  {<-> \UnicodeFontName{FontAwesome6SharpDuotone-Thin}{script=latn;}}{}
 
 \DeclareFontShape{TU}{fontawesomepro}{l}{n}
   {<->ssub * fontawesomepro/light/n}{}
