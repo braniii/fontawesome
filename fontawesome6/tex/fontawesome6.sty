@@ -1,4 +1,4 @@
-% Copyright 2018--2022 Marcel Krueger
+% Copyright 2025 Daniel Nagel
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -10,10 +10,10 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is Marcel Krueger
+% The Current Maintainer of this work is Daniel Nagel
 %
 \RequirePackage{expl3}
-\ProvidesExplPackage{fontawesome6}{2022/05/02}{5.15.4}{Font Awesome 6}
+\ProvidesExplPackage{fontawesome6}{2025/04/20}{6.7.2}{Font Awesome 6}
 
 \msg_new:nnnn{fontawesome6}{incompatible-version}
   {Incompatible~version~of~Font~Awesome~already~loaded}
@@ -79,22 +79,19 @@
     To~use~Pro,~you~need~to~have~Font~Awesome~6~Pro~installed~and~
     use~XeLaTeX~or~LuaLaTeX.~Then~you~can~activate~Pro~with~the~[pro]~option.}
 
-\NewDocumentCommand\faPreselectedIcon{m s O{\str_use:N\l_fontawesome_style_str}}{
-  \fontawesome_use_icon:nn{#3}{#1\IfBooleanT{#2}{-alt}}
+\NewDocumentCommand\faPreselectedIcon{m O{\str_use:N\l_fontawesome_style_str}}{
+  \fontawesome_use_icon:nn{#2}{#1}
 }
-\NewDocumentCommand\faIcon{s O{\str_use:N\l_fontawesome_style_str} m}{
-  \fontawesome_use_icon:nn{#2}{#3\IfBooleanT{#1}{-alt}}
+\NewDocumentCommand\faIcon{O{\str_use:N\l_fontawesome_style_str} m}{
+  \fontawesome_use_icon:nn{#1}{#2}
 }
 \NewDocumentCommand\faStyle{m}{
   \fontawesome_set_style:n{#1}
 }
 
-%\NewDocumentCommand\faRepeat{t{1}}{
-%  \faPreselectedIcon{repeat\IfBooleanT{#1}{-1}}
-%}
 \cs_new_protected:Npn\fa__select_ii:nnn#1#2#3{
   \cs_if_exist_use:cF {fa__#1_#2#3:} {
-    \faPreselectedIcon{#1}#2#3
+    \faPreselectedIcon{#1}#2
   }
 }
 \cs_new_protected:Npn\fa__select:nn#1#2{
