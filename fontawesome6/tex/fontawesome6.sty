@@ -27,25 +27,76 @@
 \cs_if_free:NF \faHome {\msg_error:nn {fontawesome6} {incompatible-version}}
 
 \RequirePackage{l3keys2e}
-
-\keys_define:nn{fontawesome6}
-{
-  pro .value_forbidden:n = true,
-  pro .tl_set:N = \c__fontawesome_kind_tl,
-  pro .default:n = pro,
-  free .value_forbidden:n = true,
-  free .tl_set:N = \c__fontawesome_kind_tl,
-  free .default:n = free,
-  fixed .bool_set:N = \c__fontawesome_fixed_bool,
-  fixed .default:n = true
-}
-\keys_set:nn{fontawesome6}{free}
-
-\ProcessKeysOptions{fontawesome6}
-
 \RequirePackage{xparse}
 
-\str_new:N\l_fontawesome_style_str
+\str_new:N \c__fontawesome_kind_tl
+\bool_new:N \l_fontawesome_sharp_bool
+\bool_new:N \l_fontawesome_duotone_bool
+\str_new:N \l_fontawesome_base_style_str
+\str_new:N \l_fontawesome_style_str
+
+\keys_define:nn{fontawesome6}
+  {
+    pro .code:n = { \str_set:Nn \c__fontawesome_kind_tl { pro } },
+    free .code:n = { \str_set:Nn \c__fontawesome_kind_tl { free } },
+    fixed .bool_set:N = \c__fontawesome_fixed_bool,
+    fixed .default:n = true,
+    sharp .bool_set:N = \l_fontawesome_sharp_bool,
+    duotone .bool_set:N = \l_fontawesome_duotone_bool,
+    solid .code:n = { \str_set:Nn \l_fontawesome_base_style_str { solid } },
+    regular .code:n = { \str_set:Nn \l_fontawesome_base_style_str { regular } },
+    light .code:n = { \str_set:Nn \l_fontawesome_base_style_str { light } },
+    thin .code:n = { \str_set:Nn \l_fontawesome_base_style_str { thin } },
+    style .code:n = { \str_set:Nn \l_fontawesome_style_str { #1 } }, % manual override
+    style .initial:n = ,
+  }
+\str_set:Nn \l_fontawesome_base_style_str { solid }
+\bool_set_false:N \l_fontawesome_sharp_bool
+\bool_set_false:N \l_fontawesome_duotone_bool
+\keys_set:nn{fontawesome6}{free}
+\ProcessKeysOptions{fontawesome6}
+
+% Compose the style string from a comma-separated list
+\cs_new_protected:Npn \fontawesome_compose_style:n #1
+  {
+    \clist_map_inline:nn {#1}
+      {
+        \str_case:nnF {\tl_trim_spaces:n {##1}}
+          {
+            {sharp}   { \bool_set_true:N \l_fontawesome_sharp_bool }
+            {duotone} { \bool_set_true:N \l_fontawesome_duotone_bool }
+            {solid}   { \str_set:Nn \l_fontawesome_base_style_str { solid } }
+            {regular} { \str_set:Nn \l_fontawesome_base_style_str { regular } }
+            {light}   { \str_set:Nn \l_fontawesome_base_style_str { light } }
+            {thin}    { \str_set:Nn \l_fontawesome_base_style_str { thin } }
+          }
+          { }
+      }
+    \tl_set:Nx \l_tmpa_tl
+      {
+        \bool_if:NTF \l_fontawesome_sharp_bool { sharp- } { }
+        \bool_if:NTF \l_fontawesome_duotone_bool { duotone- } { }
+        \l_fontawesome_base_style_str
+      }
+    \str_set:Nx \l_fontawesome_style_str { \l_tmpa_tl }
+  }
+
+% User command: set global style (optional)
+\NewDocumentCommand\faStyle{m}{
+  \fontawesome_compose_style:n {#1}
+}
+
+\NewDocumentCommand\faIcon{s o m}{
+  \IfNoValueTF{#2}
+    { \fontawesome_use_icon:nn{\str_use:N\l_fontawesome_style_str}{#3\IfBooleanT{#1}{-alt}} }
+    { \fontawesome_compose_style:n{#2} \fontawesome_use_icon:nn{\str_use:N\l_fontawesome_style_str}{#3\IfBooleanT{#1}{-alt}} }
+}
+
+\NewDocumentCommand\faPreselectedIcon{m s o}{
+  \IfNoValueTF{#3}
+    { \fontawesome_compose_style:n{} \fontawesome_use_icon:nn{\str_use:N\l_fontawesome_style_str}{#1\IfBooleanT{#2}{-alt}} }
+    { \fontawesome_compose_style:n{#3} \fontawesome_use_icon:nn{\str_use:N\l_fontawesome_style_str}{#1\IfBooleanT{#2}{-alt}} }
+}
 
 \str_case:onTF\c_sys_engine_str{
   {luatex}{}
@@ -71,39 +122,11 @@
     To~use~Pro,~you~need~to~have~Font~Awesome~6~Pro~installed~and~
     use~XeLaTeX~or~LuaLaTeX.~Then~you~can~activate~Pro~with~the~[pro]~option.}
 
-\NewDocumentCommand\faPreselectedIcon{m s O{\str_use:N\l_fontawesome_style_str}}{
-  \fontawesome_use_icon:nn{#3}{#1\IfBooleanT{#2}{-alt}}
+% set initial style value
+\tl_set:Nx \l_tmpa_tl
+{
+  \bool_if:NTF \l_fontawesome_sharp_bool { sharp- } { }
+  \bool_if:NTF \l_fontawesome_duotone_bool { duotone- } { }
+  \l_fontawesome_base_style_str
 }
-\NewDocumentCommand\faIcon{s O{\str_use:N\l_fontawesome_style_str} m}{
-  \fontawesome_use_icon:nn{#2}{#3\IfBooleanT{#1}{-alt}}
-}
-\cs_new_protected:Npn\fontawesome_set_style:n{
-  \str_set:Nn\l_fontawesome_style_str
-}
-
-\NewDocumentCommand\faStyle{m}{
-  \fontawesome_set_style:n{#1}
-}
-
-%\NewDocumentCommand\faRepeat{t{1}}{
-%  \faPreselectedIcon{repeat\IfBooleanT{#1}{-1}}
-%}
-\cs_new_protected:Npn\fa__select_ii:nnn#1#2#3{
-  \cs_if_exist_use:cF {fa__#1_#2#3:} {
-    \faPreselectedIcon{#1}#2#3
-  }
-}
-\cs_new_protected:Npn\fa__select:nn#1#2{
-  \cs_if_exist_use:cF {fa__#1_#2:} {
-    \peek_catcode:NTF 0 {
-      \fa__select_ii:nnn {#1}{#2}
-    }{
-      \faPreselectedIcon{#1}#2
-    }
-  }
-}
-\cs_new_protected:Npn\fa__select:nw#1{
-  \peek_catcode:NTF 0 {\fa__select:nn {#1}} {\faPreselectedIcon{#1}}
-}
-
-\fontawesome_set_style:n{solid}
+\str_set:Nx \l_fontawesome_style_str { \l_tmpa_tl }

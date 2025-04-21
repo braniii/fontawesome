@@ -62,11 +62,23 @@
     \group_end:
   }
   \cs_set:Nn\__fontawesome_glyphindex:n{
-    \the\tex_XeTeXglyphindex:D"#1"\scan_stop:
+    \tl_if_blank:nTF {#1}
+      { 0 }
+      { \the\tex_XeTeXglyphindex:D"#1"\scan_stop: }
   }
   \cs_set_eq:NN\__fontawesome_glyph:w\tex_XeTeXglyph:D
 }
-\__fontawesome_analyze_font:nn{\c__fontawesome_kind_tl}{solid}
+% Analyze all supported styles for the selected font family
+\clist_new:N \l__fontawesome_all_styles_clist
+%\clist_set:Nn \l__fontawesome_all_styles_clist
+%  { solid,regular,light,thin,
+%    duotone-solid,duotone-regular,duotone-light,duotone-thin,
+%    sharp-solid,sharp-regular,sharp-light,sharp-thin,
+%    sharp-duotone-solid,sharp-duotone-regular,sharp-duotone-light,sharp-duotone-thin }
+\clist_set:Nn \l__fontawesome_all_styles_clist
+  { solid,regular,light,thin }
+\clist_map_inline:Nn \l__fontawesome_all_styles_clist
+  { \__fontawesome_analyze_font:nn{\c__fontawesome_kind_tl}{#1} }
 \__fontawesome_analyze_font:nn{brands}{regular}
 
 \bool_new:N \l__fontawesome_duotone_bool
@@ -75,14 +87,21 @@
 
 \cs_new:Nn\fontawesome_use_icon:nn{
   \group_begin:
+    \typeout{[FA DEBUG] About to usefont: family=fontawesome\c__fontawesome_kind_tl, style=#1, icon=#2}
     \usefont
       {TU}
       {fontawesome\c__fontawesome_kind_tl}
       {#1}
       {n}
-    \bool_set:Nn \l__fontawesome_duotone_bool {
-      \str_if_eq_p:ee {#1} {duotone}
-    }
+    \typeout{[FA DEBUG] About to glyphindex: icon=#2, duotone=\bool_if:NTF \l__fontawesome_duotone_bool {true}{false}}
+    \typeout{[FA DEBUG] Loaded font: \the\font}
+    \immediate\write128{[FADEBUG] Font file: \fontname\font}
+    % Detect duotone style by string match
+    \bool_set:Nn \l__fontawesome_duotone_bool
+      {
+        \str_if_in:nnTF {#1} {duotone-} { \c_true_bool } { \c_false_bool }
+      }
+    % Get glyph index for primary (or fallback)
     \int_set:Nn\l_tmpa_int{
       \__fontawesome_glyphindex:n{
         #2
@@ -106,6 +125,7 @@
         \msg_warning:nnxx{fontawesome6}{style-substitution}{#2}{#1}
       }
     }
+    \typeout{[FA DEBUG] Using style: #1, icon: #2}
     \bool_if:NTF\c__fontawesome_fixed_bool{
       \makebox[1.5em][c]
     }{
