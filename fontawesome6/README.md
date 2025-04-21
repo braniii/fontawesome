@@ -12,4 +12,4 @@ maintained by Daniel Nagel and are released under the LaTeX Project Public Licen
 All included fonts are provided by @fontawesome -- http://fontawesome.com under the SIL OFL 1.1 license
 This package is not an official Font Awesome project.
 
-For bug reports, please open an issue at to https://github.com/braniii/fontawesome6.de.
+For bug reports, please open an issue at to https://github.com/braniii/fontawesome.
