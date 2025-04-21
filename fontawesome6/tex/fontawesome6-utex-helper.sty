@@ -81,7 +81,14 @@
       {#1}
       {n}
     \bool_set:Nn \l__fontawesome_duotone_bool {
-      \str_if_eq_p:ee {#1} {duotone}
+      \str_if_eq_p:ee {#1} {duotone-solid}
+      || \str_if_eq_p:ee {#1} {duotone-regular}
+      || \str_if_eq_p:ee {#1} {duotone-light}
+      || \str_if_eq_p:ee {#1} {duotone-thin}
+      || \str_if_eq_p:ee {#1} {sharp-duotone-solid}
+      || \str_if_eq_p:ee {#1} {sharp-duotone-regular}
+      || \str_if_eq_p:ee {#1} {sharp-duotone-light}
+      || \str_if_eq_p:ee {#1} {sharp-duotone-thin}
     }
     \int_set:Nn\l_tmpa_int{
       \__fontawesome_glyphindex:n{
@@ -92,7 +99,6 @@
     \int_compare:nNnT{\l_tmpa_int}={0}{
       \fontseries{solid}
       \selectfont
-      \bool_set_false:N \l__fontawesome_duotone_bool
       \int_set:Nn\l_tmpa_int{\__fontawesome_glyphindex:n{#2}}
       \int_compare:nNnTF{\l_tmpa_int}={0}{
         \fontfamily{fontawesomebrands}

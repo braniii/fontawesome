@@ -28,6 +28,11 @@
 
 \RequirePackage{l3keys2e}
 
+\str_new:N\l_fontawesome_style_str
+\cs_new_protected:Npn\fontawesome_set_style:n{
+  \str_set:Nn\l_fontawesome_style_str
+}
+
 \keys_define:nn{fontawesome6}
 {
   pro .value_forbidden:n = true,
@@ -37,15 +42,18 @@
   free .tl_set:N = \c__fontawesome_kind_tl,
   free .default:n = free,
   fixed .bool_set:N = \c__fontawesome_fixed_bool,
-  fixed .default:n = true
+  fixed .default:n = true,
+  style .code:n = { \fontawesome_set_style:n{#1} }
 }
 \keys_set:nn{fontawesome6}{free}
 
 \ProcessKeysOptions{fontawesome6}
 
-\RequirePackage{xparse}
+\str_if_empty:NT \l_fontawesome_style_str {
+  \fontawesome_set_style:n{solid}
+}
 
-\str_new:N\l_fontawesome_style_str
+\RequirePackage{xparse}
 
 \str_case:onTF\c_sys_engine_str{
   {luatex}{}
@@ -77,10 +85,6 @@
 \NewDocumentCommand\faIcon{s O{\str_use:N\l_fontawesome_style_str} m}{
   \fontawesome_use_icon:nn{#2}{#3\IfBooleanT{#1}{-alt}}
 }
-\cs_new_protected:Npn\fontawesome_set_style:n{
-  \str_set:Nn\l_fontawesome_style_str
-}
-
 \NewDocumentCommand\faStyle{m}{
   \fontawesome_set_style:n{#1}
 }
@@ -105,5 +109,3 @@
 \cs_new_protected:Npn\fa__select:nw#1{
   \peek_catcode:NTF 0 {\fa__select:nn {#1}} {\faPreselectedIcon{#1}}
 }
-
-\fontawesome_set_style:n{solid}
