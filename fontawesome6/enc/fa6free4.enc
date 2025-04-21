@@ -1,14 +1,4 @@
 /fa6free4 [
-/republican
-/restroom
-/retweet
-/ribbon
-/right-from-bracket
-/right-left
-/right-long
-/right-to-bracket
-/ring
-/road
 /road-barrier
 /road-bridge
 /road-circle-check
@@ -255,4 +245,14 @@
 /truck-droplet
 /truck-fast
 /truck-field
+/truck-field-un
+/truck-front
+/truck-medical
+/truck-monster
+/truck-moving
+/truck-pickup
+/truck-plane
+/truck-ramp-box
+/tty
+/turkish-lira-sign
 ] def

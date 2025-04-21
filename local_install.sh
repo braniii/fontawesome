@@ -31,3 +31,7 @@ cp enc/*.enc ~/texmf/fonts/enc/dvips/fontawesome6/
 
 mktexlsr ~/texmf
 updmap-user --enable Map=fontawesome6.map
+
+updmap-user --syncwithtrees
+kpsewhich pdftex.map
+updmap-user

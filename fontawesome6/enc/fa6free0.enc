@@ -1,14 +1,4 @@
 /fa6free0 [
-/0
-/1
-/2
-/3
-/4
-/5
-/6
-/7
-/8
-/9
 /a
 /address-book
 /address-card
@@ -255,4 +245,14 @@
 /champagne-glasses
 /charging-station
 /chart-area
+/chart-bar
+/chart-column
+/chart-diagram
+/chart-gantt
+/chart-line
+/chart-pie
+/chart-simple
+/check
+/check-double
+/check-to-slot
 ] def

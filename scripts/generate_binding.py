@@ -1,5 +1,6 @@
 import json
 import math
+import re
 import os
 
 from fontTools.ttLib import TTFont
@@ -28,6 +29,8 @@ GLYPHS_PER_ENC = 256
 ICON_JSON = os.path.join('assets', 'icons.json')
 OUTPUT_DEF = os.path.join(root_dir, 'tex', 'fontawesome6-mapping.def')
 
+ALLOWED_PATTERN = re.compile("[A-Za-z]+")
+SKIP_ICONS = set(str(i) for i in range(10))
 HEADING_MAPPING = """% Copyright 2025 Daniel Nagel
 %
 % This work may be distributed and/or modified under the
@@ -82,6 +85,7 @@ def generate_enc(otf_path, enc_base, enc_dir):
     font = TTFont(otf_path)
     glyph_order = font.getGlyphOrder()
     glyph_order = [g for g in glyph_order if not g.startswith('.')]
+    glyph_order = [g for g in glyph_order if g not in SKIP_ICONS]
     glyph_order.sort()
     n_glyphs = len(glyph_order)
 
@@ -97,7 +101,8 @@ def generate_enc(otf_path, enc_base, enc_dir):
             for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
                 if idx < n_glyphs:
                     f.write(f"/{glyph_order[idx]}\n")
-                    glyph_assignments[glyph_order[idx]] = enc_name[3:]
+                    slot = idx % GLYPHS_PER_ENC
+                    glyph_assignments[glyph_order[idx]] = (enc_name[3:], slot)
                 else:
                     f.write("/.notdef\n")
             f.write("] def\n")
@@ -111,17 +116,19 @@ def generate_mapping(enc_assignments):
         icons = json.load(f)
 
     lines = []
-    idx = {k: 0 for k in set(enc_assignments.values())}
-
     for name, icon in icons.items():
         unicode_val = icon.get("unicode")
-        fam = enc_assignments.get(name)
+        if name not in enc_assignments:
+            continue
+        fam, slot = enc_assignments.get(name)
         macro = f"\\fa{''.join([w.capitalize() for w in name.split('-')])}"
+        # if digit in macro delete macro
+        if not ALLOWED_PATTERN.fullmatch(macro[2:]):
+            macro = ""
         # Compose line
         lines.append(
-            f'\\__fontawesome_def_icon:nnnnn{{{macro}}}{{{name}}}{{{fam}}}{{{idx[fam]}}}{{"{unicode_val.upper()}}}'
+            f'\\__fontawesome_def_icon:nnnnn{{{macro}}}{{{name}}}{{{fam}}}{{{slot}}}{{"{unicode_val.upper()}}}'
         )
-        idx[fam] += 1
 
     # Write header and lines
     with open(OUTPUT_DEF, "w", encoding="utf-8") as out:
@@ -171,7 +178,7 @@ def generate_map():
 
 def generate_fd_files(enc_assignments):
     fd_dir = os.path.join(root_dir, tex_dir)
-    enc_files = set(enc_assignments.values())
+    enc_files = set(enc for enc, _ in enc_assignments.values())
 
     for enc in enc_files:
         # Generate fd files for free fonts

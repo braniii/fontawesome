@@ -1,14 +1,4 @@
 /fa6free1 [
-/chart-bar
-/chart-column
-/chart-diagram
-/chart-gantt
-/chart-line
-/chart-pie
-/chart-simple
-/check
-/check-double
-/check-to-slot
 /cheese
 /chess
 /chess-bishop
@@ -255,4 +245,14 @@
 /file-circle-question
 /file-circle-xmark
 /file-code
+/file-contract
+/file-csv
+/file-excel
+/file-export
+/file-fragment
+/file-half-dashed
+/file-image
+/file-import
+/file-invoice
+/file-invoice-dollar
 ] def

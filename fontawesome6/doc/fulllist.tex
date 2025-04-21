@@ -37,13 +37,7 @@
 \cs_set:Nn\__fontawesome_def_icon:nnnnn{
   \__fontawesome_list_show_icon:fnnn{
     \tl_if_empty:nTF{#1}{
-      \str_if_eq:noTF{#2}{\g__fontawesome_last_name_tl-alt}{
-        \g__fontawesome_last_cs_tl*
-      }{
-        \cs_if_exist_use:cF {__fontawesome_list_real_cs_#2_tl} {
-          \msg_expandable_error:nnn {fontawesome5} {list/no-shorthand} {#2}
-        }
-      }
+      faIcon\{\str_foldcase:n{#2}\}
     }{
       \cs_to_str:N #1 % You might have noticed that #1 is a n-type argument, not N-type.
       % This is not a mistake, the argument might contain additional characters after the initial cs
@@ -51,34 +45,6 @@
     }
   }{#2}{#3}{#4}
 }
-% Some icons are special for some reason. See fontawesome5.sty if you want to know why
-% they are singled out.
-\tl_const:cn{__fontawesome_list_real_cs_wifi_tl}{faWifi}
-\tl_const:cn{__fontawesome_list_real_cs_dice-d20_tl}{faDiceD20}
-\tl_const:cn{__fontawesome_list_real_cs_dice-d6_tl}{faDiceD6}
-\tl_const:cn{__fontawesome_list_real_cs_signal_tl}{faSignal}
-\tl_const:cn{__fontawesome_list_real_cs_stopwatch_tl}{faStopwatch}
-\tl_const:cn{__fontawesome_list_real_cs_stopwatch-20_tl}{faStopwatch20}
-%
-\tl_const:cn{__fontawesome_list_real_cs_500px_tl}{faIcon\{500px\}}
-%\tl_const:cn{__fontawesome_list_real_cs_arrows-alt_tl}{faArrows*}
-%\tl_const:cn{__fontawesome_list_real_cs_cloud-download-alt_tl}{faCloudDownload*}
-%\tl_const:cn{__fontawesome_list_real_cs_cloud-upload-alt_tl}{faCloudUpload*}
-%\tl_const:cn{__fontawesome_list_real_cs_exchange-alt_tl}{faExchange*}
-%\tl_const:cn{__fontawesome_list_real_cs_expand-arrows-alt_tl}{faExpandArrows*}
-%\tl_const:cn{__fontawesome_list_real_cs_external-link-alt_tl}{faExternalLink*}
-%\tl_const:cn{__fontawesome_list_real_cs_external-link-square-alt_tl}{faExternalLinkSquare*}
-%\tl_const:cn{__fontawesome_list_real_cs_level-down-alt_tl}{faLevelDown*}
-%\tl_const:cn{__fontawesome_list_real_cs_level-up-alt_tl}{faLevelUp*}
-%\tl_const:cn{__fontawesome_list_real_cs_pencil-alt_tl}{faPencil*}
-%\tl_const:cn{__fontawesome_list_real_cs_shield-alt_tl}{faShield*}
-%\tl_const:cn{__fontawesome_list_real_cs_sign-in-alt_tl}{faSignIn*}
-%\tl_const:cn{__fontawesome_list_real_cs_sign-out-alt_tl}{faSignOut*}
-%\tl_const:cn{__fontawesome_list_real_cs_square-root-alt_tl}{faSquareRoot*}
-%\tl_const:cn{__fontawesome_list_real_cs_tachometer-alt_tl}{faTachometer*}
-%\tl_const:cn{__fontawesome_list_real_cs_ticket-alt_tl}{faTicket*}
-%
-%\tl_const:cn{__fontawesome_list_real_cs_compress-arrows-alt_tl}{faCompressArrows*}
 \ExplSyntaxOff
 \newgeometry{textwidth=18cm}
 \subsection*{Full~icon~list~for~FontAwesome~6~Free}
