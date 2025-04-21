@@ -6,35 +6,41 @@
 \usepackage{fontawesome6}
 % \usepackage{xcolor}
 % \usepackage[pro]{fontawesome6}
-% \faStyle{duotone}
+% \faStyle{duotone-solid}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
 \MakeShortVerb{\|}
+\usepackage[english]{babel}
 \begin{document}
-\title{The fontawesome6 package\thanks{This document corresponds to fontawesome6 version 6.7.2, dated 2025/04/20}}
-\author{Font Awesome\thanks{More information at \url{https://fontawesome.com}} (The font)\and Daniel Nagel\thanks{Github: \href{https://github.com/braniii}{github.com/braniii}} (The \LaTeX{} package)}
+\title{The \texttt{fontawesome6} Package\thanks{This document corresponds to fontawesome6 version 6.7.2, dated 2025/04/20.}}
+\author{Font Awesome\thanks{More information at \url{https://fontawesome.com}} (The font)\and Daniel Nagel\thanks{GitHub: \href{https://github.com/braniii}{github.com/braniii}} (The \LaTeX{} package)}
 \maketitle
-This package provides \LaTeX{} support for the Font Awesome 6 icons.
 
-Thanks goes to Marcel Krüger for the original fontawesome5 package
-\url{https://ctan.org/pkg/fontawesome5}, which this package is based on.
+This package provides \LaTeX{} support for Font Awesome 6 icons.
 
-To use Font Awesome 6 icons in your document, include the package with
+Special thanks to Marcel Krüger for the original \texttt{fontawesome5} package\\
+(\url{https://ctan.org/pkg/fontawesome5}), upon which this package is based.
+
+\subsection*{Usage}
+
+To use Font Awesome 6 icons in your document, load the package with:
 \begin{verbatim}
   \usepackage{fontawesome6}
 \end{verbatim}
-Alternatively you can add the |fixed| option to get fixed-width icons:
+Optionally, you can add the |fixed| option to enable fixed-width icons:
 \begin{verbatim}
   \usepackage[fixed]{fontawesome6}
 \end{verbatim}
-For every icon a macro is provided: Just use the official icon names converted to CamelCase with the prefix |\fa|.
-For example to use the |hand-point-up| icon, use |\faHandPointUp|.
-An optional argument can be added to select the style (|solid| or |regular|).
-The default style is |solid|, it can be changed with |\faStyle{...}|
 
-Every icon can also be accessed using the official icon name. To do this, you can use |\faIcon{the-icon-name}| or |\faIcon[style]{the-icon-name}|.
+Each icon is available as a macro, using the official icon name in CamelCase with the prefix |\fa|.\\
+For example, to use the |hand-point-up| icon, write |\faHandPointUp|.\\
+An optional argument allows you to select the style (|solid| or |regular|). The
+default style is |solid|, but you can change it globally with |\faStyle{...}| or
+by setting the option |style=...|.
 
-A list of all included icons with their respective commands can be found at the end of this document.
+Alternatively, you can access any icon by its official name using |\faIcon{icon-name}| or |\faIcon[style]{icon-name}|.
+
+A comprehensive list of all included icons and their corresponding commands is provided at the end of this document.
 
 \subsection*{Example}
 \begin{verbatim}
@@ -61,35 +67,37 @@ Multiple versions of the file icon: \faFile~\faFile[solid]~\faFile[regular].\\
 Alternative syntax: \faIcon{file}~\faIcon[solid]{file}~\faIcon[regular]{file}.
 
 \subsection*{Font Awesome Pro}
-Font Awesome 6 is available in a Free and a Pro version. This package uses the
-free version by default. If you own a Pro license and have the Font Awesome 6
-Pro desktop fonts installed in your system font path, you can use Pro instead.
-For this, load the package with the |[pro]| option:
+Font Awesome 6 is available in both Free and Pro versions. By default, this package uses the Free version. If you have a Pro license and have installed the Font Awesome 6 Pro desktop fonts in your system font path, you can enable Pro support by loading the package with the |[pro]| option:
 \begin{verbatim}
   \usepackage[pro]{fontawesome6}
 \end{verbatim}
-Now additional icons, the |duotone| and the |light| style can be used.
-The second color for |duotone| icons can be set though |\faDuotoneSetSecondary|:
+
+With Pro enabled, the following additional styles are available: |solid|, |regular|, |light|, |thin|, |duotone-solid|, |duotone-regular|, |duotone-light|, |duotone-thin|, |sharp-solid|, |sharp-regular|, |sharp-light|, |sharp-thin|, |sharp-duotone-solid|, |sharp-duotone-regular|, |sharp-duotone-light|, and |sharp-duotone-thin|.
+
+For duotone icons, you can set the secondary color using |\faDuotoneSetSecondary|:
 \begin{verbatim}
-  \faDuotoneSetSecondary{green}% From here on, the secondary layer
-                               % will be green.
+  % Remember to load xcolor
+  % Set secondary color to green
+  \faDuotoneSetSecondary{\color{green}}
 \end{verbatim}
-Pro is only supported with \XeLaTeX{} and \LuaLaTeX.
-For icons ending with |-alt|, append a |*| instead.
+Pro features are supported only with \XeLaTeX{} and \LuaLaTeX.
 
 \subsection*{Updates}
-This package corresponds to Font Awesome 6.7.2.
-In case there is a newer version available on the Font Awesome homepage, check for updates on \url{https://ctan.org/pkg/fontawesome6}. Should there be no corresponding update on CTAN, you can write a mail to \href{mailto:tex@2krueger.de}{\nolinkurl{tex@2krueger.de}}.
-If you use \XeLaTeX{} or \LuaLaTeX{}, you can also directly download the new Desktop Fonts from \url{https://fontawesome.com} into your \TeX{} tree. If you save them with the filenames\\
-{\ttfamily\begin{tabular}{l}
+This package corresponds to Font Awesome 6.7.2.\\
+If a newer version is available on the Font Awesome website, check for updates at \url{https://ctan.org/pkg/fontawesome6}. If the latest version is not yet on CTAN, you may contact \href{mailto:tex@2krueger.de}{\nolinkurl{tex@2krueger.de}}.
+
+If you use \XeLaTeX{} or \LuaLaTeX{}, you can also manually download the new Desktop Fonts from \url{https://fontawesome.com} and place them in your \TeX{} tree. Save them with the following filenames:
+{\ttfamily
+\begin{tabular}{l}
   FontAwesome6Brands-Regular-400.otf\\
   FontAwesome6Free-Regular-400.otf\\
   FontAwesome6Free-Solid-900.otf
-\end{tabular}}\\
-the package will start using the new version right away.
+\end{tabular}
+}\\
+The package will then automatically use the new version.
 
-\subsection*{Bugs}
-For bug reports and feature requests, open an issue at \href{https://github.com/braniii/fontawesome6}{github.com/braniii/fontawesome6}.
+\subsection*{Bugs and Feedback}
+For bug reports or feature requests, please open an issue at \href{https://github.com/braniii/fontawesome6}{github.com/braniii/fontawesome6}.
 
 \input{fulllist}
 \end{document}
