@@ -47,36 +47,36 @@ HEADING_MAPPING = """% Copyright 2025 Daniel Nagel
 %
 """
 
-FD_FREE = """\\DeclareFontFamily{{U}}{{fontawesome{enc}}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{solid}}{{n}}
+FD_FREE = """\\DeclareFontFamily{{U}}{{fontawesome6{enc}}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{solid}}{{n}}
     {{<-> fa6{enc}solid}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{regular}}{{n}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{regular}}{{n}}
     {{<-> fa6{enc}regular}}{{}}
 
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{m}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{b}}{{n}}
-    {{<->ssub * fontawesome{enc}/solid/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{bx}}{{n}}
-    {{<->ssub * fontawesome{enc}/solid/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{m}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{b}}{{n}}
+    {{<->ssub * fontawesome6{enc}/solid/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{bx}}{{n}}
+    {{<->ssub * fontawesome6{enc}/solid/n}}{{}}
 """
 
-FD_BRANDS = """\\DeclareFontFamily{{U}}{{fontawesome{enc}}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{regular}}{{n}}
+FD_BRANDS = """\\DeclareFontFamily{{U}}{{fontawesome6{enc}}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{regular}}{{n}}
     {{<-> fa6{enc}}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{solid}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{light}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{solid}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{light}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
 
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{l}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{m}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{b}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
-\\DeclareFontShape{{U}}{{fontawesome{enc}}}{{bx}}{{n}}
-    {{<->ssub * fontawesome{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{l}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{m}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{b}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
+\\DeclareFontShape{{U}}{{fontawesome6{enc}}}{{bx}}{{n}}
+    {{<->ssub * fontawesome6{enc}/regular/n}}{{}}
 """
 
 
@@ -182,7 +182,7 @@ def generate_fd_files(enc_assignments):
 
     for enc in enc_files:
         # Generate fd files for free fonts
-        fd_path = os.path.join(fd_dir, f"ufontawesome{enc}.fd")
+        fd_path = os.path.join(fd_dir, f"ufontawesome6{enc}.fd")
         with open(fd_path, "w", encoding="utf-8") as f:
             f.write(HEADING_MAPPING)
             if enc.startswith("free"):

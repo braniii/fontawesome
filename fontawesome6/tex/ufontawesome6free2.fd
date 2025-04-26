@@ -12,15 +12,15 @@
 % 
 % The Current Maintainer of this work is Daniel Nagel
 %
-\DeclareFontFamily{U}{fontawesomefree4}{}
-\DeclareFontShape{U}{fontawesomefree4}{solid}{n}
-    {<-> fa6free4solid}{}
-\DeclareFontShape{U}{fontawesomefree4}{regular}{n}
-    {<-> fa6free4regular}{}
+\DeclareFontFamily{U}{fontawesome6free2}{}
+\DeclareFontShape{U}{fontawesome6free2}{solid}{n}
+    {<-> fa6free2solid}{}
+\DeclareFontShape{U}{fontawesome6free2}{regular}{n}
+    {<-> fa6free2regular}{}
 
-\DeclareFontShape{U}{fontawesomefree4}{m}{n}
-    {<->ssub * fontawesomefree4/regular/n}{}
-\DeclareFontShape{U}{fontawesomefree4}{b}{n}
-    {<->ssub * fontawesomefree4/solid/n}{}
-\DeclareFontShape{U}{fontawesomefree4}{bx}{n}
-    {<->ssub * fontawesomefree4/solid/n}{}
+\DeclareFontShape{U}{fontawesome6free2}{m}{n}
+    {<->ssub * fontawesome6free2/regular/n}{}
+\DeclareFontShape{U}{fontawesome6free2}{b}{n}
+    {<->ssub * fontawesome6free2/solid/n}{}
+\DeclareFontShape{U}{fontawesome6free2}{bx}{n}
+    {<->ssub * fontawesome6free2/solid/n}{}

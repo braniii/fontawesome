@@ -12,15 +12,15 @@
 % 
 % The Current Maintainer of this work is Daniel Nagel
 %
-\DeclareFontFamily{TU}{fontawesomefree}{}
-\DeclareFontShape{TU}{fontawesomefree}{solid}{n}
+\DeclareFontFamily{TU}{fontawesome6free}{}
+\DeclareFontShape{TU}{fontawesome6free}{solid}{n}
   {<-> \UnicodeFontFile{FontAwesome6Free-Solid-900.otf}{script=latn;}}{}
-\DeclareFontShape{TU}{fontawesomefree}{regular}{n}
+\DeclareFontShape{TU}{fontawesome6free}{regular}{n}
   {<-> \UnicodeFontFile{FontAwesome6Free-Regular-400.otf}{script=latn;}}{}
 
-\DeclareFontShape{TU}{fontawesomefree}{m}{n}
-  {<->ssub * fontawesomefree/regular/n}{}
-\DeclareFontShape{TU}{fontawesomefree}{b}{n}
-  {<->ssub * fontawesomefree/solid/n}{}
-\DeclareFontShape{TU}{fontawesomefree}{bx}{n}
-  {<->ssub * fontawesomefree/solid/n}{}
+\DeclareFontShape{TU}{fontawesome6free}{m}{n}
+  {<->ssub * fontawesome6free/regular/n}{}
+\DeclareFontShape{TU}{fontawesome6free}{b}{n}
+  {<->ssub * fontawesome6free/solid/n}{}
+\DeclareFontShape{TU}{fontawesome6free}{bx}{n}
+  {<->ssub * fontawesome6free/solid/n}{}
