@@ -72,6 +72,7 @@ Then, use the same commands as above to insert icons. For duotone icons, you can
 ## Icon List
 
 For a full list of available icons and their names, see the [package documentation](doc/fontawesome6.pdf) or the [Font Awesome icon gallery](https://fontawesome.com/icons).
+A cheatsheet for the `\faIcon` syntax can be found [here](cheatsheet/fa6_cheatsheet_faicon.pdf) and for the command syntax, e.g. `faGithub` [here](cheatsheet/fa6_cheatsheet.pdf).
 
 ## Example
 
