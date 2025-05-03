@@ -1,0 +1,64 @@
+\ExplSyntaxOn
+\msg_new:nnnn {fontawesome6} {list/no-shorthand} {No~shorthand~defined~for~icon~#1.} {
+  It~looks~like~#1~need~special~handling~in~fulllist.tex~but~there~are~
+  no~appropriate~definitions.~Ask~a~wizard~to~add~#1~to~fulllist.tex~to~
+  fix~this.
+}
+\tl_new:N \g__fontawesome_last_name_tl
+\tl_new:N \g__fontawesome_last_cs_tl
+\prg_new_protected_conditional:Nnn \__fontawesome_if_regular_style:nn {T} {
+  \group_begin:
+    \usefont{U}{fontawesome#1}{regular}{n}
+    \iffontchar\font#2
+      \group_insert_after:N \prg_return_true:
+    \else:
+      \group_insert_after:N \prg_return_false:
+    \fi:
+  \group_end:
+}
+\tracingonline1
+\showboxdepth\maxdimen
+\showboxbreadth\maxdimen
+\cs_new:Nn\__fontawesome_list_show_icon:nnnn{
+  \str_if_in:nnT{#3}{brands}{
+    \hfilneg\vbox to0.875em{\vfil\hbox to0pt{\hss\tiny\faTrademark\quad}\vfil}\hfil
+  }
+  \faIcon{#2}&\texttt{\textbackslash faIcon\{#2\}}
+
+  \str_if_in:nnT{#3}{free}{
+    \__fontawesome_if_regular_style:nnT {#3} {#4} {
+	    \\\faIcon[regular]{#2}&\texttt{\textbackslash faIcon[regular]\{#2\}}
+    }
+  }
+  \tl_gset:Nn \g__fontawesome_last_cs_tl {#1}
+  \tl_gset:Nn \g__fontawesome_last_name_tl {#2}
+  \\
+}
+\cs_generate_variant:Nn \__fontawesome_list_show_icon:nnnn { fnnn }
+\cs_set:Nn\__fontawesome_def_icon:nnnnn{
+  \__fontawesome_list_show_icon:fnnn{
+    \tl_if_empty:nTF{#1}{
+      faIcon\{\str_foldcase:n{#2}\}
+    }{
+      \cs_to_str:N #1 % You might have noticed that #1 is a n-type argument, not N-type.
+      % This is not a mistake, the argument might contain additional characters after the initial cs
+      % which is passed to \cs_to_str:N
+    }
+  }{#2}{#3}{#4}
+}
+\ExplSyntaxOff
+%\newgeometry{textwidth=18cm}
+\subsection*{Full~icon~list~for~FontAwesome~6~Free}
+All icons marked with \vbox to0.875em{\vfil\hbox{\hss\tiny\faTrademark}\vfil} are brand icons.
+\setbox\ltmcbox\vbox{
+\makeatletter\col@number\@ne
+\ExplSyntaxOn
+\begin{longtable}{cl}
+  \cs:w @@input\cs_end: fontawesome6-mapping.def~
+\end{longtable}
+\ExplSyntaxOff
+\unskip
+\unpenalty
+\unpenalty}
+\unvbox\ltmcbox
+%\restoregeometry
