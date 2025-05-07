@@ -94,7 +94,7 @@ Special thanks to Marcel Krüger for creating the original [fontawesome5](https:
 
 ## Documentation
 
-Comprehensive documentation is available in [`doc/fontawesome6.pdf`](doc/fontawesome6.pdf).
+Comprehensive documentation is available in [`doc/fontawesome6.pdf`](fontawesome6/doc/fontawesome6.pdf).
 
 ## License
 
