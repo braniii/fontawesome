@@ -32,6 +32,7 @@
 \cs_new_protected:Npn\fontawesome_set_style:n{
   \str_set:Nn\l_fontawesome_style_str
 }
+\bool_new:N\l_fontawesome_faFivealias_bool
 
 \keys_define:nn{fontawesome6}
 {
@@ -43,7 +44,9 @@
   free .default:n = free,
   fixed .bool_set:N = \c__fontawesome_fixed_bool,
   fixed .default:n = true,
-  style .code:n = { \fontawesome_set_style:n{#1} }
+  style .code:n = { \fontawesome_set_style:n{#1} },
+  fa5alias .bool_set:N = \l_fontawesome_faFivealias_bool,
+  fa5alias .default:n = true,
 }
 \keys_set:nn{fontawesome6}{free}
 
@@ -63,6 +66,10 @@
 }{
   \RequirePackage{fontawesome6-generic-helper}
 }
+
+\bool_if:NTF \l_fontawesome_faFivealias_bool {
+  \RequirePackage{fontawesome6-fa5alias-cmds}
+}{}
 
 \msg_new:nnnn{fontawesome6}{icon-not-found}
   {The~requested~icon~#1~was~not~found.}
