@@ -25,7 +25,11 @@ The package is available on [CTAN](https://ctan.org/pkg/fontawesome6). You can i
     mpm --install fontawesome6
     ```
 
-Alternatively, copy the package files to your local texmf tree.
+Alternatively, copy the package files to your local texmf tree like this:
+```bash
+chmod u+x local_install.sh
+./local_install.sh
+```
 
 ## Usage
 
