@@ -1,5 +1,7 @@
 # FontAwesome6 LaTeX Package
 
+**This branch corresponds to FontAwesome6. For using FontAwesome7, please use the main branch.**
+
 [![CTAN](https://img.shields.io/ctan/v/fontawesome6.svg)](https://ctan.org/pkg/fontawesome6)
 
 FontAwesome6 is a LaTeX package that provides access to the [Font Awesome 6](https://fontawesome.com/) icon set. It enables you to easily include high-quality icons in your LaTeX documents, presentations, and posters.
