@@ -44,8 +44,8 @@
   \cs_new:Nn\__fontawesome_analyze_font:nn{
     \group_begin:
       \usefont{TU}{fontawesome7#1}{#2}{n}
-      \int_step_inline:nnn {`1} {`9} {\char_set_catcode_letter:n {##1}}
-      \int_step_inline:nnnn{0}1{\tex_XeTeXcountglyphs:D \tex_font:D - 1} {
+      \int_step_inline:nnn {`0} {`9} {\char_set_catcode_letter:n {##1}}
+      \int_step_inline:nnnn{1}1{\tex_XeTeXcountglyphs:D \tex_font:D - 1} {
         \tl_set:No\l_tmpa_tl{\tex_XeTeXglyphname:D \tex_font:D ##1}
         \tl_set:NV\l_tmpb_tl\l_tmpa_tl
         \tl_put_left:No\l_tmpb_tl{\char_generate:nn{92}{12}fa-}
