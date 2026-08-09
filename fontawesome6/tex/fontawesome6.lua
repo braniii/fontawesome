@@ -20,8 +20,8 @@ function fontawesome6_analyze_current_font(fontid)
       "\\exp_args:NNc\\tex_global:D\\tex_chardef:D{c__fontawesome_slot_" .. name .. '_char}' .. value .. '\\scan_stop:')
     tex.sprint(
       luatexbase.registernumber("CatcodeTableExpl"),
-      "\\cs_gset_protected:Npn"
-        .. string.gsub('\\fa-' .. name, '-(%w)', string.upper)
+      "\\cs_gset_protected:cpn"
+        .. string.gsub('{fa-' .. name .. "}", '-(%w)', string.upper)
         .. "{\\faPreselectedIcon{" .. name .. "}}")
   end
 end
