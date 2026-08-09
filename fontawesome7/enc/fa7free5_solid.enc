@@ -1,4 +1,17 @@
 /fa7free5solid [
+/tree
+/tree-city
+/triangle-exclamation
+/trophy
+/trowel
+/trowel-bricks
+/truck
+/truck-arrow-right
+/truck-droplet
+/truck-fast
+/truck-field
+/truck-field-un
+/truck-front
 /truck-medical
 /truck-monster
 /truck-moving
@@ -68,6 +81,7 @@
 /video
 /video-slash
 /vihara
+/virgo
 /virus
 /virus-covid
 /virus-covid-slash
@@ -76,6 +90,7 @@
 /voicemail
 /volcano
 /volleyball
+/volume
 /volume-high
 /volume-low
 /volume-off
@@ -119,21 +134,6 @@
 /yin-yang
 /z
 /zero-width-space
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
 /.notdef
 /.notdef
 /.notdef

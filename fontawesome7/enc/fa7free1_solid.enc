@@ -1,4 +1,8 @@
 /fa7free1solid [
+/chart-line
+/chart-pie
+/chart-simple
+/check
 /check-double
 /check-to-slot
 /cheese
@@ -62,6 +66,7 @@
 /clock-rotate-left
 /clone
 /closed-captioning
+/closed-captioning-slash
 /cloud
 /cloud-arrow-down
 /cloud-arrow-up
@@ -250,9 +255,4 @@
 /file-contract
 /file-csv
 /file-excel
-/file-export
-/file-fragment
-/file-half-dashed
-/file-image
-/file-import
 ] def

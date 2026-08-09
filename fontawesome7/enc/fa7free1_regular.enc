@@ -3,6 +3,10 @@
 /.notdef
 /.notdef
 /.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
 /chess-bishop
 /.notdef
 /chess-king
@@ -62,6 +66,7 @@
 /.notdef
 /clone
 /closed-captioning
+/.notdef
 /cloud
 /.notdef
 /.notdef
@@ -250,9 +255,4 @@
 /.notdef
 /.notdef
 /file-excel
-/.notdef
-/.notdef
-/.notdef
-/file-image
-/.notdef
 ] def

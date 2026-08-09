@@ -1,6 +1,11 @@
 /fa7free2regular [
 /.notdef
 /.notdef
+/.notdef
+/file-image
+/.notdef
+/.notdef
+/.notdef
 /file-lines
 /.notdef
 /file-pdf
@@ -60,6 +65,7 @@
 /.notdef
 /.notdef
 /gem
+/.notdef
 /.notdef
 /.notdef
 /.notdef
@@ -245,14 +251,8 @@
 /lemon
 /.notdef
 /.notdef
+/.notdef
+/.notdef
 /life-ring
 /lightbulb
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
-/.notdef
 ] def

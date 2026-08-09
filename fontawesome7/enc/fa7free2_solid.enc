@@ -1,4 +1,9 @@
 /fa7free2solid [
+/file-export
+/file-fragment
+/file-half-dashed
+/file-image
+/file-import
 /file-invoice
 /file-invoice-dollar
 /file-lines
@@ -60,6 +65,7 @@
 /gear
 /gears
 /gem
+/gemini
 /genderless
 /ghost
 /gift
@@ -243,16 +249,10 @@
 /left-long
 /left-right
 /lemon
+/leo
 /less-than
 /less-than-equal
+/libra
 /life-ring
 /lightbulb
-/lines-leaning
-/link
-/link-slash
-/lira-sign
-/list
-/list-check
-/list-ol
-/list-ul
 ] def

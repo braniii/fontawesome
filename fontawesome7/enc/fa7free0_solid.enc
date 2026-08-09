@@ -22,7 +22,9 @@
 /angles-up
 /ankh
 /apple-whole
+/aquarius
 /archway
+/aries
 /arrow-down
 /arrow-down-1-9
 /arrow-down-9-1
@@ -215,8 +217,10 @@
 /camera-retro
 /camera-rotate
 /campground
+/cancer
 /candy-cane
 /cannabis
+/capricorn
 /capsules
 /car
 /car-battery
@@ -251,8 +255,4 @@
 /chart-column
 /chart-diagram
 /chart-gantt
-/chart-line
-/chart-pie
-/chart-simple
-/check
 ] def

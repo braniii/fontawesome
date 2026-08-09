@@ -1,4 +1,12 @@
 /fa7free3solid [
+/lines-leaning
+/link
+/link-slash
+/lira-sign
+/list
+/list-check
+/list-ol
+/list-ul
 /litecoin-sign
 /location-arrow
 /location-crosshairs
@@ -192,8 +200,10 @@
 /phone-slash
 /phone-volume
 /photo-film
+/picture-in-picture
 /piggy-bank
 /pills
+/pisces
 /pizza-slice
 /place-of-worship
 /plane
@@ -245,14 +255,4 @@
 /rectangle-list
 /rectangle-xmark
 /recycle
-/registered
-/repeat
-/reply
-/reply-all
-/republican
-/restroom
-/retweet
-/ribbon
-/right-from-bracket
-/right-left
 ] def

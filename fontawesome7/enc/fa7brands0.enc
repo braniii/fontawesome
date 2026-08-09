@@ -2,6 +2,7 @@
 /42-group
 /500px
 /a
+/a11y-project
 /accessible-icon
 /accusoft
 /adn
@@ -22,6 +23,7 @@
 /apper
 /apple
 /apple-pay
+/arch-linux
 /artstation
 /asymmetrik
 /atlassian
@@ -46,12 +48,14 @@
 /bluesky
 /bluetooth
 /bluetooth-b
+/board-game-geek
 /bootstrap
 /bots
 /brave
 /brave-reverse
 /btc
 /buffer
+/build-awesome
 /buromobelexperte
 /buy-n-large
 /buysellads
@@ -72,16 +76,20 @@
 /centos
 /chrome
 /chromecast
+/circle-zulip
+/claude
 /cloudflare
 /cloudscale
 /cloudsmith
 /cloudversify
 /cmplid
+/codeberg
 /codepen
 /codiepie
 /confluence
 /connectdevelop
 /contao
+/copilot
 /cotton-bureau
 /cpanel
 /creative-commons
@@ -116,6 +124,7 @@
 /deskpro
 /dev
 /deviantart
+/devpost
 /dhl
 /diaspora
 /digg
@@ -125,6 +134,7 @@
 /disqus
 /dochub
 /docker
+/dolibarr
 /draft2digital
 /dribbble
 /dropbox
@@ -153,6 +163,7 @@
 /facebook-messenger
 /fantasy-flight-games
 /fedex
+/fediverse
 /fedora
 /figma
 /files-pinwheel
@@ -168,6 +179,7 @@
 /font-awesome
 /fonticons
 /fonticons-fi
+/forgejo
 /fort-awesome
 /fort-awesome-alt
 /forumbee
@@ -183,6 +195,7 @@
 /gg-circle
 /git
 /git-alt
+/gitee
 /github
 /github-alt
 /gitkraken
@@ -190,6 +203,7 @@
 /gitter
 /glide
 /glide-g
+/globaleaks
 /gofore
 /golang
 /goodreads
@@ -221,6 +235,7 @@
 /houzz
 /html5
 /hubspot
+/hugging-face
 /hyphen
 /i
 /ideal
@@ -228,6 +243,7 @@
 /instagram
 /instalod
 /intercom
+/internet-archive
 /internet-explorer
 /invision
 /ioxhost
@@ -239,20 +255,4 @@
 /jedi-order
 /jenkins
 /jira
-/joget
-/joomla
-/js
-/jsfiddle
-/jxl
-/k
-/kaggle
-/kakao-talk
-/keybase
-/keycdn
-/kickstarter
-/kickstarter-k
-/korvue
-/l
-/laravel
-/lastfm
 ] def

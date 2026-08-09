@@ -1,4 +1,14 @@
 /fa7free4solid [
+/registered
+/repeat
+/reply
+/reply-all
+/republican
+/restroom
+/retweet
+/ribbon
+/right-from-bracket
+/right-left
 /right-long
 /right-to-bracket
 /ring
@@ -28,6 +38,7 @@
 /s
 /sack-dollar
 /sack-xmark
+/sagittarius
 /sailboat
 /satellite
 /satellite-dish
@@ -41,6 +52,7 @@
 /school-flag
 /school-lock
 /scissors
+/scorpio
 /screwdriver
 /screwdriver-wrench
 /scroll
@@ -185,6 +197,7 @@
 /tape
 /tarp
 /tarp-droplet
+/taurus
 /taxi
 /teeth
 /teeth-open
@@ -242,17 +255,4 @@
 /trash-arrow-up
 /trash-can
 /trash-can-arrow-up
-/tree
-/tree-city
-/triangle-exclamation
-/trophy
-/trowel
-/trowel-bricks
-/truck
-/truck-arrow-right
-/truck-droplet
-/truck-fast
-/truck-field
-/truck-field-un
-/truck-front
 ] def
