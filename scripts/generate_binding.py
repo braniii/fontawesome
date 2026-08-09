@@ -7,13 +7,9 @@ from fontTools.ttLib import TTFont
 
 # Hardcoded font file names and output enc names
 fonts = [
-    ("FontAwesome6Brands-Regular-400.otf", "fa6brands"),
-    ("FontAwesome6Free-Regular-400.otf", "fa6free"),
-    ("FontAwesome6Free-Solid-900.otf", "fa6free"),
-]
-fonts_enc = [
-    ("FontAwesome6Brands-Regular-400.otf", "fa6brands"),
-    ("FontAwesome6Free-Solid-900.otf", "fa6free"),
+    ("FontAwesome6Brands-Regular-400.otf", "fa6brands", "regular"),
+    ("FontAwesome6Free-Regular-400.otf", "fa6free", "regular"),
+    ("FontAwesome6Free-Solid-900.otf", "fa6free", "solid"),
 ]
 
 root_dir = "fontawesome6"
@@ -81,17 +77,62 @@ FD_BRANDS = """\\DeclareFontFamily{{U}}{{fontawesome6{enc}}}{{}}
 
 
 
-def generate_enc(otf_path, enc_base, enc_dir):
+def _glyphs_from_otf(otf_path):
     font = TTFont(otf_path)
     glyph_order = font.getGlyphOrder()
     glyph_order = [g for g in glyph_order if not g.startswith('.')]
     glyph_order = [g for g in glyph_order if g not in SKIP_ICONS]
     glyph_order.sort()
-    n_glyphs = len(glyph_order)
+    return glyph_order
+
+
+def generate_enc_pair(solid_otf_path, regular_otf_path, enc_base, enc_dir):
+    solid_glyphs = _glyphs_from_otf(solid_otf_path)
+    regular_glyphs = set(_glyphs_from_otf(regular_otf_path))
 
     glyph_assignments = {}
 
-    # get number of subfiles
+    n_parts = math.ceil(len(solid_glyphs) / GLYPHS_PER_ENC)
+    for part in range(n_parts):
+        base_name = f"{enc_base}{part}"
+        # Solid enc file
+        enc_path_solid = os.path.join(root_dir, enc_dir, f"{base_name}_solid.enc")
+        with open(enc_path_solid, "w", encoding="utf-8") as f:
+            f.write(f"/{base_name}solid [\n")
+            for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
+                if idx < len(solid_glyphs):
+                    name = solid_glyphs[idx]
+                    f.write(f"/{name}\n")
+                    slot = idx % GLYPHS_PER_ENC
+                    glyph_assignments[name] = (base_name[3:], slot)
+                else:
+                    f.write("/.notdef\n")
+            f.write("] def\n")
+        print(f"... generated {enc_path_solid}")
+
+        # Regular enc file (holes for missing glyphs)
+        enc_path_regular = os.path.join(root_dir, enc_dir, f"{base_name}_regular.enc")
+        with open(enc_path_regular, "w", encoding="utf-8") as f:
+            f.write(f"/{base_name}regular [\n")
+            for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
+                if idx < len(solid_glyphs):
+                    name = solid_glyphs[idx]
+                    if name in regular_glyphs:
+                        f.write(f"/{name}\n")
+                    else:
+                        f.write("/.notdef\n")
+                else:
+                    f.write("/.notdef\n")
+            f.write("] def\n")
+        print(f"... generated {enc_path_regular}")
+
+    return glyph_assignments
+
+
+def generate_enc_simple(otf_path, enc_base, enc_dir):
+    """Generate a single enc set (no style suffix). Used for brands."""
+    glyph_order = _glyphs_from_otf(otf_path)
+    glyph_assignments = {}
     n_parts = math.ceil(len(glyph_order) / GLYPHS_PER_ENC)
     for part in range(n_parts):
         enc_name = f"{enc_base}{part}"
@@ -99,15 +140,15 @@ def generate_enc(otf_path, enc_base, enc_dir):
         with open(enc_path, "w", encoding="utf-8") as f:
             f.write(f"/{enc_name} [\n")
             for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
-                if idx < n_glyphs:
-                    f.write(f"/{glyph_order[idx]}\n")
+                if idx < len(glyph_order):
+                    name = glyph_order[idx]
+                    f.write(f"/{name}\n")
                     slot = idx % GLYPHS_PER_ENC
-                    glyph_assignments[glyph_order[idx]] = (enc_name[3:], slot)
+                    glyph_assignments[name] = (enc_name[3:], slot)
                 else:
                     f.write("/.notdef\n")
             f.write("] def\n")
         print(f"... generated {enc_path}")
-    
     return glyph_assignments
 
 
@@ -150,23 +191,32 @@ def generate_map():
     }
 
     tfm_path = os.path.join(root_dir, tfm_dir)
-    for tfm_file in sorted(
-        [f for f in os.listdir(tfm_path) if f.endswith(".tfm")]
-    ):
+    for tfm_file in sorted([f for f in os.listdir(tfm_path) if f.endswith(".tfm")]):
         tfm_name = tfm_file[:-4]
         for base in font_psnames.keys():
             if base in tfm_name:
                 ps_name, pfb_file = font_psnames[base]
                 break
 
-        # Extract encoding part (e.g., fa6free0, fa6free1, ...)
-        enc_part = tfm_name.replace("solid", "").replace("regular", "")
-        enc_file = f"{enc_part}.enc"
-        enc_name = enc_part
+        # Extract encoding root (e.g., fa6free0) and style
+        if tfm_name.endswith("solid"):
+            style = "solid"
+        elif tfm_name.endswith("regular"):
+            style = "regular"
+        else:
+            style = "regular"  # brands fallback
+        enc_root = tfm_name.replace("solid", "").replace("regular", "")
 
-        map_line = (
-            f"{tfm_name} {ps_name} \"{enc_name} ReEncodeFont\" <[{enc_file} <{pfb_file}"
-        )
+        # Brands use single enc, named exactly like file
+        if enc_root.startswith("fa6brands"):
+            enc_file = f"{enc_root}.enc"
+            enc_name = enc_root
+        else:
+            # Free: style-specific enc file with shared root
+            enc_file = f"{enc_root}_{style}.enc"
+            enc_name = f"{enc_root}{style}"
+
+        map_line = f"{tfm_name} {ps_name} \"{enc_name} ReEncodeFont\" <[{enc_file} <{pfb_file}"
         map_lines.append(map_line)
 
     map_path = os.path.join(root_dir, map_dir, "fontawesome6.map")
@@ -195,17 +245,30 @@ def generate_fd_files(enc_assignments):
 if __name__ == "__main__":
     glyph_assignments = {}
     print("Generating enc files...")
-    for otf_file, enc_base in fonts_enc:
-        otf_path = os.path.join(root_dir, opentype_dir, otf_file)
-        glyph_assignments |= generate_enc(otf_path, enc_base, enc_dir)
-    
+    # Brands: single regular-only enc set
+    brands_otf = os.path.join(root_dir, opentype_dir, "FontAwesome6Brands-Regular-400.otf")
+    glyph_assignments |= generate_enc_simple(
+        otf_path=brands_otf,
+        enc_base="fa6brands",
+        enc_dir=enc_dir,
+    )
+    # Free: generate parallel encs from Solid and Regular OTFs
+    free_solid_otf = os.path.join(root_dir, opentype_dir, "FontAwesome6Free-Solid-900.otf")
+    free_regular_otf = os.path.join(root_dir, opentype_dir, "FontAwesome6Free-Regular-400.otf")
+    glyph_assignments |= generate_enc_pair(
+        solid_otf_path=free_solid_otf,
+        regular_otf_path=free_regular_otf,
+        enc_base="fa6free",
+        enc_dir=enc_dir,
+    )
+
     print("Generating mapping file...")
     generate_mapping(glyph_assignments)
 
     print("Generating type1 files...")
     enc_files = [f for f in os.listdir(os.path.join(root_dir, enc_dir)) if f.endswith(".enc")]
     enc_files.sort()
-    for otf_file, enc_base in fonts:
+    for otf_file, enc_base, style in fonts:
         otf_path = os.path.join(root_dir, opentype_dir, otf_file)
         # loop over all enc files
         for enc_file in enc_files:
@@ -213,6 +276,12 @@ if __name__ == "__main__":
                 enc_path = os.path.join(root_dir, enc_dir, enc_file)
                 tfm_path = os.path.join(root_dir, tfm_dir)
                 type1_path = os.path.join(root_dir, type1_dir)
+                # For free fonts, only use enc files matching their style suffix
+                if enc_base == "fa6free":
+                    if not enc_file.endswith(f"_{style}.enc"):
+                        continue
+                # For brands, single enc set is fine
+
                 # Generate type1 files
                 os.system(
                     "otftotfm --no-encoding --force "
@@ -226,11 +295,13 @@ if __name__ == "__main__":
                     tfm_path, f"{otf_file[:-8]}--{enc_file[:-4]}.tfm",
                 )
 
-                new_tfm_file = os.path.join(
-                    tfm_path, f"{enc_file[:-4]}.tfm",
-                ) if enc_base.endswith("brands") else os.path.join(
-                    tfm_path, f"{enc_file[:-4]}{'solid' if 'Solid' in otf_file else 'regular'}.tfm",
-                )
+                if enc_base.endswith("brands"):
+                    new_tfm_file = os.path.join(tfm_path, f"{enc_file[:-4]}.tfm")
+                else:
+                    enc_root = enc_file[:-4]  # e.g., fa6free0_solid
+                    enc_part_root = enc_root.replace("_solid", "").replace("_regular", "")
+                    style_tag = "solid" if style == "solid" else "regular"
+                    new_tfm_file = os.path.join(tfm_path, f"{enc_part_root}{style_tag}.tfm")
 
                 os.rename(tfm_file, new_tfm_file)
                 print(f"... generated {new_tfm_file}")
