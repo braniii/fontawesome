@@ -27,7 +27,7 @@ OUTPUT_DEF = os.path.join(root_dir, 'tex', 'fontawesome6-mapping.def')
 
 ALLOWED_PATTERN = re.compile("[A-Za-z]+")
 SKIP_ICONS = set(str(i) for i in range(10))
-HEADING_MAPPING = """% Copyright 2025 Daniel Nagel
+HEADING_MAPPING = """% Copyright 2025-2026 Daniel Nagel
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
