@@ -1,0 +1,53 @@
+name: Update Font Awesome 7
+
+on:
+  schedule:
+    # first day of every month, 06:00 UTC
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends jq unzip python3-fonttools git
+
+      - name: Mark repository as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Check for new release and upgrade
+        id: upgrade
+        run: ./scripts/upgrade_fa.sh
+
+      - name: Create pull request
+        if: steps.upgrade.outputs.version != ''
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: auto-update-fa7
+          commit-message: 'Bump to latest FA v${{ steps.upgrade.outputs.version }}.'
+          title: 'Bump to Font Awesome ${{ steps.upgrade.outputs.version }}'
+          body: |
+            Automated monthly update to Font Awesome ${{ steps.upgrade.outputs.version }}
+            (package version ${{ steps.upgrade.outputs.package_version }}).
+
+            Performed by `scripts/upgrade_fa.sh`:
+            - downloaded the desktop fonts and `icons.json` from the
+              [FortAwesome release](https://github.com/FortAwesome/Font-Awesome/releases/tag/${{ steps.upgrade.outputs.version }})
+            - regenerated all binding artifacts (`enc`, `mapping.def`, `tfm`, `type1`, `map`, `fd`)
+            - bumped the package version and rebuilt documentation and cheatsheets
+            - compiled every icon with pdfLaTeX, XeLaTeX and LuaLaTeX
+
+            Review the mapping diff for added/removed icons, then merge and upload to CTAN.
+          labels: fa7
+          delete-branch: true
