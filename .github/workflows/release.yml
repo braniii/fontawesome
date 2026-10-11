@@ -1,0 +1,44 @@
+name: Release to CTAN
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag, e.g. v7.3.1-2 or v6.7.2-5'
+        required: true
+      upload:
+        description: 'Upload to CTAN (otherwise only validate)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag }}
+
+      - name: Submit to CTAN
+        env:
+          TAG: ${{ inputs.tag }}
+          ACTION: ${{ inputs.upload && 'upload' || 'validate' }}
+          CTAN_EMAIL: ${{ secrets.CTAN_EMAIL }}
+        run: |
+          # v7.* releases fontawesome7 (main), v6.* fontawesome6 (fa6)
+          VERSION=${TAG#v}
+          PKG=fontawesome${VERSION%%.*}
+          grep -F "\\ProvidesExplPackage{$PKG}" "$PKG/tex/$PKG.sty" | grep -qF "{$VERSION}" \
+              || { echo "::error::$PKG.sty is not at version $VERSION"; exit 1; }
+          git archive --format=zip -o "$PKG.zip" HEAD "$PKG"
+
+          code=$(curl -sS -o response.json -w '%{http_code}' \
+              -F update=true -F pkg="$PKG" -F version="$VERSION" \
+              -F uploader="Daniel Nagel" -F email="$CTAN_EMAIL" \
+              -F file=@"$PKG.zip" "https://www.ctan.org/submit/$ACTION")
+          echo "CTAN responded with $code:"
+          cat response.json; echo
+          [ "$code" = 200 ] && ! grep -qE '"ERROR"|Upload failed' response.json
