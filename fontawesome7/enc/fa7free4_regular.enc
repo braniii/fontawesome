@@ -1,3 +1,25 @@
+% UNICODING registered =: uni00AE ;
+% UNICODING s =: uni0053 ;
+% UNICODING share-from-square =: uniF045 ;
+% UNICODING snowflake =: uni2744 ;
+% UNICODING space =: uni0020 ;
+% UNICODING square =: uni25A0 ;
+% UNICODING square-caret-down =: uniF150 ;
+% UNICODING square-caret-left =: uniF191 ;
+% UNICODING square-caret-right =: uniF152 ;
+% UNICODING square-caret-up =: uniF151 ;
+% UNICODING square-check =: uni2611 ;
+% UNICODING square-full =: uni2B1B ;
+% UNICODING square-minus =: uniF146 ;
+% UNICODING square-plus =: uniF0FE ;
+% UNICODING star =: uni2B50 ;
+% UNICODING star-half =: uniF089 ;
+% UNICODING star-half-stroke =: uniF5C0 ;
+% UNICODING sun =: uni2600 ;
+% UNICODING t =: uni0054 ;
+% UNICODING thumbs-down =: uniF088 ;
+% UNICODING thumbs-up =: uniF087 ;
+% UNICODING trash-can =: uniF014 ;
 /fa7free4regular [
 /registered
 /.notdef
