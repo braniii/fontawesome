@@ -86,18 +86,41 @@ def _glyphs_from_otf(otf_path):
     return glyph_order
 
 
+def _unicodings_from_otf(otf_path):
+    """Map each glyph to a codepoint which the cmap maps back to it.
+
+    otftotfm resolves glyph names via the Adobe Glyph List and the cmap, but
+    FA maps e.g. U+2026 to zero-width-space, so /ellipsis, /ring, ... would
+    end up with zero width. Pinning each glyph to its own codepoint avoids it.
+    """
+    unicodings = {}
+    for cp, name in sorted(TTFont(otf_path).getBestCmap().items()):
+        unicodings.setdefault(name, cp)
+    return unicodings
+
+
+def _write_unicodings(f, names, unicodings):
+    for name in names:
+        if name in unicodings:
+            f.write(f"% UNICODING {name} =: uni{unicodings[name]:04X} ;\n")
+
+
 def generate_enc_pair(solid_otf_path, regular_otf_path, enc_base, enc_dir):
     solid_glyphs = _glyphs_from_otf(solid_otf_path)
     regular_glyphs = set(_glyphs_from_otf(regular_otf_path))
+    solid_unicodings = _unicodings_from_otf(solid_otf_path)
+    regular_unicodings = _unicodings_from_otf(regular_otf_path)
 
     glyph_assignments = {}
 
     n_parts = math.ceil(len(solid_glyphs) / GLYPHS_PER_ENC)
     for part in range(n_parts):
         base_name = f"{enc_base}{part}"
+        part_glyphs = solid_glyphs[part * GLYPHS_PER_ENC:(part + 1) * GLYPHS_PER_ENC]
         # Solid enc file
         enc_path_solid = os.path.join(root_dir, enc_dir, f"{base_name}_solid.enc")
         with open(enc_path_solid, "w", encoding="utf-8") as f:
+            _write_unicodings(f, part_glyphs, solid_unicodings)
             f.write(f"/{base_name}solid [\n")
             for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
                 if idx < len(solid_glyphs):
@@ -113,6 +136,9 @@ def generate_enc_pair(solid_otf_path, regular_otf_path, enc_base, enc_dir):
         # Regular enc file (holes for missing glyphs)
         enc_path_regular = os.path.join(root_dir, enc_dir, f"{base_name}_regular.enc")
         with open(enc_path_regular, "w", encoding="utf-8") as f:
+            _write_unicodings(
+                f, [g for g in part_glyphs if g in regular_glyphs], regular_unicodings,
+            )
             f.write(f"/{base_name}regular [\n")
             for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
                 if idx < len(solid_glyphs):
@@ -132,12 +158,16 @@ def generate_enc_pair(solid_otf_path, regular_otf_path, enc_base, enc_dir):
 def generate_enc_simple(otf_path, enc_base, enc_dir):
     """Generate a single enc set (no style suffix). Used for brands."""
     glyph_order = _glyphs_from_otf(otf_path)
+    unicodings = _unicodings_from_otf(otf_path)
     glyph_assignments = {}
     n_parts = math.ceil(len(glyph_order) / GLYPHS_PER_ENC)
     for part in range(n_parts):
         enc_name = f"{enc_base}{part}"
         enc_path = os.path.join(root_dir, enc_dir, f"{enc_name}.enc")
         with open(enc_path, "w", encoding="utf-8") as f:
+            _write_unicodings(
+                f, glyph_order[part * GLYPHS_PER_ENC:(part + 1) * GLYPHS_PER_ENC], unicodings,
+            )
             f.write(f"/{enc_name} [\n")
             for idx in range(part * GLYPHS_PER_ENC, (part + 1) * GLYPHS_PER_ENC):
                 if idx < len(glyph_order):
