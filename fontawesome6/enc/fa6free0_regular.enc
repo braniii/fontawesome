@@ -1,3 +1,21 @@
+% UNICODING a =: uni0041 ;
+% UNICODING address-book =: uniF2B9 ;
+% UNICODING address-card =: uniF2BB ;
+% UNICODING asterisk =: uni002A ;
+% UNICODING at =: uni0040 ;
+% UNICODING b =: uni0042 ;
+% UNICODING bell =: uniF0A2 ;
+% UNICODING bell-slash =: uniF1F6 ;
+% UNICODING bookmark =: uniF02E ;
+% UNICODING building =: uniF0F7 ;
+% UNICODING c =: uni0043 ;
+% UNICODING calendar =: uniF133 ;
+% UNICODING calendar-check =: uniF274 ;
+% UNICODING calendar-days =: uniF073 ;
+% UNICODING calendar-minus =: uniF272 ;
+% UNICODING calendar-plus =: uniF271 ;
+% UNICODING calendar-xmark =: uniF273 ;
+% UNICODING chart-bar =: uniF080 ;
 /fa6free0regular [
 /a
 /address-book

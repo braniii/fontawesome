@@ -1,3 +1,27 @@
+% UNICODING wolf-pack-battalion =: uniF514 ;
+% UNICODING wordpress =: uniF19A ;
+% UNICODING wordpress-simple =: uniF411 ;
+% UNICODING wpbeginner =: uniF297 ;
+% UNICODING wpexplorer =: uniF2DE ;
+% UNICODING wpforms =: uniF298 ;
+% UNICODING wpressr =: uniF3E4 ;
+% UNICODING x =: uni0058 ;
+% UNICODING x-twitter =: uniE61B ;
+% UNICODING xbox =: uniF412 ;
+% UNICODING xing =: uniF168 ;
+% UNICODING y =: uni0059 ;
+% UNICODING y-combinator =: uniF23B ;
+% UNICODING yahoo =: uniF19E ;
+% UNICODING yammer =: uniF840 ;
+% UNICODING yandex =: uniF413 ;
+% UNICODING yandex-international =: uniF414 ;
+% UNICODING yarn =: uniF7E3 ;
+% UNICODING yelp =: uniF1E9 ;
+% UNICODING yoast =: uniF2B1 ;
+% UNICODING youtube =: uniF167 ;
+% UNICODING z =: uni005A ;
+% UNICODING zero-width-space =: uni0022 ;
+% UNICODING zhihu =: uniF63F ;
 /fa6brands2 [
 /wolf-pack-battalion
 /wordpress

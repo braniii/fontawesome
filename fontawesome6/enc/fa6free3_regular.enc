@@ -1,3 +1,27 @@
+% UNICODING m =: uni004D ;
+% UNICODING map =: uniF278 ;
+% UNICODING message =: uniF27A ;
+% UNICODING money-bill-1 =: uniF3D1 ;
+% UNICODING moon =: uni23FE ;
+% UNICODING n =: uni004E ;
+% UNICODING newspaper =: uniF1EA ;
+% UNICODING notdef =: uniE1FE ;
+% UNICODING note-sticky =: uniF249 ;
+% UNICODING o =: uni004F ;
+% UNICODING object-group =: uniF247 ;
+% UNICODING object-ungroup =: uniF248 ;
+% UNICODING p =: uni0050 ;
+% UNICODING paper-plane =: uniF1D8 ;
+% UNICODING paste =: uniF0EA ;
+% UNICODING pen-to-square =: uniF044 ;
+% UNICODING percent =: uni0025 ;
+% UNICODING plus =: uni002B ;
+% UNICODING q =: uni0051 ;
+% UNICODING question =: uni003F ;
+% UNICODING r =: uni0052 ;
+% UNICODING rectangle-list =: uniF022 ;
+% UNICODING rectangle-xmark =: uniF2D4 ;
+% UNICODING registered =: uni00AE ;
 /fa6free3regular [
 /.notdef
 /.notdef
