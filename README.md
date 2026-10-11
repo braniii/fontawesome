@@ -8,6 +8,8 @@ FontAwesome7 is a LaTeX package that provides access to the [Font Awesome 7](htt
 
 ## Features
 
+> Looking for free duotone icon sets? Have a look at the amazing [Phosphoricons](https://github.com/braniii/phosphoricons)
+
 - Access to hundreds of Font Awesome 7 icons
 - Supports both regular and solid styles
 - Easy-to-use commands for inserting icons
