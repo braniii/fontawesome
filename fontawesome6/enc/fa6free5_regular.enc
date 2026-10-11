@@ -1,3 +1,14 @@
+% UNICODING u =: uni0055 ;
+% UNICODING user =: uniF007 ;
+% UNICODING v =: uni0056 ;
+% UNICODING w =: uni0057 ;
+% UNICODING window-maximize =: uniF2D0 ;
+% UNICODING window-minimize =: uniF2D1 ;
+% UNICODING window-restore =: uniF2D2 ;
+% UNICODING x =: uni0058 ;
+% UNICODING y =: uni0059 ;
+% UNICODING z =: uni005A ;
+% UNICODING zero-width-space =: uni0022 ;
 /fa6free5regular [
 /.notdef
 /.notdef
